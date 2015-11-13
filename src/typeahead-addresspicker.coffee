@@ -93,7 +93,23 @@
       @options.autocompleteService.input = query
       service.getPlacePredictions @options.autocompleteService, (predictions) =>
         $(this).trigger('addresspicker:predictions', [predictions])
+        if @options.filters
+          predictions = @filterPredictions predictions
+
         cb(predictions)
+
+    #Filter predictions
+    filterPredictions: (predictions) =>
+      filterOptions = @options.filters
+      predictions = predictions.filter (el) ->
+        keep = false
+        filterOptions.forEach (opt) ->
+          if el.types.indexOf(opt) >= 0
+            keep = true
+          return
+        keep
+      predictions
+
 
     # Callback for typeahead events like typeahead:selected or typeahead:cursorchanged
     # to update marker position and map center/zoom for a specific Google Map place
