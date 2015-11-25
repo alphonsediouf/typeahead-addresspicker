@@ -93,7 +93,7 @@
       @options.autocompleteService.input = query
       service.getPlacePredictions @options.autocompleteService, (predictions) =>
         $(this).trigger('addresspicker:predictions', [predictions])
-        if @options.filters
+        if @options.filters and Array.isArray(predictions)
           predictions = @filterPredictions predictions
 
         cb(predictions)

@@ -146,7 +146,7 @@
         return service.getPlacePredictions(this.options.autocompleteService, (function(_this) {
           return function(predictions) {
             $(_this).trigger('addresspicker:predictions', [predictions]);
-            if (_this.options.filters) {
+            if (_this.options.filters && Array.isArray(predictions)) {
               predictions = _this.filterPredictions(predictions);
             }
             return cb(predictions);
